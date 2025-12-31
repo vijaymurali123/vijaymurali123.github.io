@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Wedding</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-content">
+            <h1 class="couple-names">Vijay & [Partner Name]</h1>
+            <p class="wedding-date">We're Getting Married!</p>
+            <p class="date-info">Date: [Wedding Date]</p>
+            <a href="#details" class="cta-button">View Details</a>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#our-story">Our Story</a></li>
+            <li><a href="#details">Details</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#rsvp">RSVP</a></li>
+        </ul>
+    </nav>
+
+    <!-- Our Story Section -->
+    <section id="our-story">
+        <div class="container">
+            <h2>Our Story</h2>
+            <div class="story-content">
+                <p>
+                    Every love story is beautiful, but ours is our favorite. 
+                    We met [how you met], and from that moment on, we knew we had found something special.
+                </p>
+                <p>
+                    After [timeline] of laughter, adventures, and growing together, 
+                    we're ready to begin our forever.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wedding Details Section -->
+    <section id="details">
+        <div class="container">
+            <h2>Wedding Details</h2>
+            <div class="details-grid">
+                <div class="detail-card">
+                    <h3>📅 When</h3>
+                    <p><strong>[Day of Week]</strong></p>
+                    <p>[Full Date]</p>
+                    <p>[Time]</p>
+                </div>
+                <div class="detail-card">
+                    <h3>📍 Where</h3>
+                    <p><strong>[Venue Name]</strong></p>
+                    <p>[Venue Address]</p>
+                    <p>[City, State]</p>
+                </div>
+                <div class="detail-card">
+                    <h3>👔 Dress Code</h3>
+                    <p><strong>[Dress Code]</strong></p>
+                    <p>[Additional details]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <div class="container">
+            <h2>Our Memories</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/ff9999/ffffff?text=Photo+1" alt="Photo 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/ffb399/ffffff?text=Photo+2" alt="Photo 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/ffd699/ffffff?text=Photo+3" alt="Photo 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/d699ff/ffffff?text=Photo+4" alt="Photo 4">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/99d6ff/ffffff?text=Photo+5" alt="Photo 5">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://via.placeholder.com/400x300/99ffcc/ffffff?text=Photo+6" alt="Photo 6">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp">
+        <div class="container">
+            <h2>RSVP</h2>
+            <form id="rsvp-form">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="guests">Number of Guests *</label>
+                    <input type="number" id="guests" name="guests" min="1" max="10" required>
+                </div>
+                <div class="form-group">
+                    <label for="attendance">Will you attend? *</label>
+                    <select id="attendance" name="attendance" required>
+                        <option value="">Please select</option>
+                        <option value="yes">Yes, I'll be there!</option>
+                        <option value="no">Sorry, can't make it</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message for the Couple</label>
+                    <textarea id="message" name="message" rows="4"></textarea>
+                </div>
+                <button type="submit" class="submit-button">Send RSVP</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>We can't wait to celebrate with you! 💕</p>
+        <p>&copy; 2025 Vijay & [Partner Name] Wedding</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
