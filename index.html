@@ -3,135 +3,366 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Wedding</title>
+    <title>Vijay & Bindiya - Wedding</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Floating Music Player -->
+    <div class="music-player" id="musicPlayer">
+        <button class="music-toggle" id="musicToggle">
+            <i class="fas fa-music"></i>
+        </button>
+    </div>
+
     <!-- Hero Section -->
-    <section id="hero">
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="couple-names">Vijay & Bindiya</h1>
-            <p class="wedding-date">We're Getting Married!</p>
-            <p class="date-info">April 11, 2025</p>
-            <a href="#details" class="cta-button">View Details</a>
+            <div class="hero-animation">
+                <div class="ornament-top"></div>
+                <p class="hero-subtitle">The Wedding Reception Of</p>
+                <h1 class="couple-names">
+                    <span class="name-groom">Vijay</span>
+                    <span class="ampersand">&</span>
+                    <span class="name-bride">Bindiya</span>
+                </h1>
+                <div class="date-divider"></div>
+                <p class="wedding-date">11 · 04 · 2025</p>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">00</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">00</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">00</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">00</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+                <a href="#rsvp" class="cta-button">
+                    <span>RSVP Now</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <div class="ornament-bottom"></div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
         </div>
     </section>
 
     <!-- Navigation -->
-    <nav id="navbar">
-        <ul>
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#our-story">Our Story</a></li>
-            <li><a href="#details">Details</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#rsvp">RSVP</a></li>
-        </ul>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">V & B</div>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#story" class="nav-link">Our Story</a></li>
+                <li><a href="#timeline" class="nav-link">Timeline</a></li>
+                <li><a href="#details" class="nav-link">Details</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#rsvp" class="nav-link">RSVP</a></li>
+            </ul>
+        </div>
     </nav>
 
     <!-- Our Story Section -->
-    <section id="our-story">
+    <section id="story" class="our-story">
         <div class="container">
-            <h2>Our Story</h2>
+            <div class="section-header">
+                <span class="section-subtitle">How It All Began</span>
+                <h2 class="section-title">Our Story</h2>
+                <div class="title-underline"></div>
+            </div>
             <div class="story-content">
-                <p>
-                    Every love story is beautiful, but ours is our favorite. 
-                    We met at a mutual friend's party in 2020, and from that moment on, we knew we had found something special.
-                </p>
-                <p>
-                    After 5 wonderful years of laughter, adventures, and growing together, 
-                    we're ready to begin our forever.
-                </p>
+                <div class="story-card">
+                    <div class="story-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>How We Met</h3>
+                    <p>Every love story is beautiful, but ours is our favorite. Our journey began with a chance encounter that felt like destiny.</p>
+                </div>
+                <div class="story-card">
+                    <div class="story-icon">
+                        <i class="fas fa-ring"></i>
+                    </div>
+                    <h3>The Proposal</h3>
+                    <p>A moment we'll cherish forever - when two hearts decided to become one, promising a lifetime of love and happiness.</p>
+                </div>
+                <div class="story-card">
+                    <div class="story-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3>Forever Together</h3>
+                    <p>Now we're excited to begin the next chapter of our lives together, and we'd love for you to be part of our special day.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="timeline-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Our Journey</span>
+                <h2 class="section-title">Love Timeline</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>First Meet</h3>
+                        <span class="timeline-date">2020</span>
+                        <p>The beginning of something beautiful</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>First Date</h3>
+                        <span class="timeline-date">2020</span>
+                        <p>A magical evening that changed everything</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-ring"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Engagement</h3>
+                        <span class="timeline-date">2024</span>
+                        <p>We said YES to forever</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Wedding Day</h3>
+                        <span class="timeline-date">April 11, 2025</span>
+                        <p>Our happily ever after begins</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Wedding Details Section -->
-    <section id="details">
+    <section id="details" class="wedding-details">
         <div class="container">
-            <h2>Wedding Details</h2>
+            <div class="section-header">
+                <span class="section-subtitle">Event Information</span>
+                <h2 class="section-title">Wedding Details</h2>
+                <div class="title-underline"></div>
+            </div>
             <div class="details-grid">
                 <div class="detail-card">
-                    <h3>📅 When</h3>
-                    <p><strong>Friday</strong></p>
-                    <p>April 11, 2025</p>
-                    <p>Wedding Reception</p>
+                    <div class="detail-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>When</h3>
+                    <p class="detail-main">Friday, April 11, 2025</p>
+                    <p class="detail-sub">Wedding Reception</p>
+                    <div class="detail-divider"></div>
+                    <p class="detail-time"><i class="far fa-clock"></i> Evening Ceremony</p>
                 </div>
                 <div class="detail-card">
-                    <h3>📍 Where</h3>
-                    <p><strong>Aruvi House</strong></p>
-                    <p>Groom's Residence</p>
-                    <p>Reception Venue</p>
+                    <div class="detail-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Where</h3>
+                    <p class="detail-main">Aruvi House</p>
+                    <p class="detail-sub">Groom's Residence</p>
+                    <div class="detail-divider"></div>
+                    <a href="#" class="detail-button" onclick="alert('Add your Google Maps link here'); return false;">
+                        <i class="fas fa-directions"></i> Get Directions
+                    </a>
                 </div>
+            </div>
+            <div class="save-date">
+                <button class="save-date-button" onclick="alert('Add to calendar functionality - integrate with Google Calendar/iCal')">
+                    <i class="far fa-calendar-plus"></i>
+                    <span>Save The Date</span>
+                </button>
             </div>
         </div>
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery">
+    <section id="gallery" class="gallery">
         <div class="container">
-            <h2>Our Memories</h2>
+            <div class="section-header">
+                <span class="section-subtitle">Memories</span>
+                <h2 class="section-title">Our Moments</h2>
+                <div class="title-underline"></div>
+            </div>
             <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/400x300/ff9999/ffffff?text=Photo+1" alt="Photo 1">
+                <div class="gallery-item" data-category="engagement">
+                    <img src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=500" alt="Engagement Photo 1">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/400x300/ffb399/ffffff?text=Photo+2" alt="Photo 2">
+                <div class="gallery-item" data-category="engagement">
+                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=500" alt="Engagement Photo 2">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/400x300/ffd699/ffffff?text=Photo+3" alt="Photo 3">
+                <div class="gallery-item" data-category="prewedding">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=500" alt="Pre-wedding Photo 1">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/400x300/d699ff/ffffff?text=Photo+4" alt="Photo 4">
+                <div class="gallery-item" data-category="prewedding">
+                    <img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=500" alt="Pre-wedding Photo 2">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/400x300/99d6ff/ffffff?text=Photo+5" alt="Photo 5">
+                <div class="gallery-item" data-category="couple">
+                    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=500" alt="Couple Photo 1">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://via.placeholder.com/400x300/99ffcc/ffffff?text=Photo+6" alt="Photo 6">
+                <div class="gallery-item" data-category="couple">
+                    <img src="https://images.unsplash.com/photo-1594735511681-c1c4ebc98d8a?w=500" alt="Couple Photo 2">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <button class="lightbox-prev" id="lightboxPrev">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="lightbox-next" id="lightboxNext">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <img class="lightbox-image" id="lightboxImage" src="" alt="">
+    </div>
+
     <!-- RSVP Section -->
-    <section id="rsvp">
+    <section id="rsvp" class="rsvp">
         <div class="container">
-            <h2>RSVP</h2>
-            <form id="rsvp-form">
-                <div class="form-group">
-                    <label for="name">Full Name *</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email *</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="guests">Number of Guests *</label>
-                    <input type="number" id="guests" name="guests" min="1" max="10" required>
-                </div>
-                <div class="form-group">
-                    <label for="attendance">Will you attend? *</label>
-                    <select id="attendance" name="attendance" required>
-                        <option value="">Please select</option>
-                        <option value="yes">Yes, I'll be there!</option>
-                        <option value="no">Sorry, can't make it</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message for the Couple</label>
-                    <textarea id="message" name="message" rows="4"></textarea>
-                </div>
-                <button type="submit" class="submit-button">Send RSVP</button>
-            </form>
+            <div class="section-header">
+                <span class="section-subtitle">Join Our Celebration</span>
+                <h2 class="section-title">RSVP</h2>
+                <div class="title-underline"></div>
+                <p class="rsvp-subtitle">We hope you can join us on our special day</p>
+            </div>
+            <div class="rsvp-wrapper">
+                <form class="rsvp-form" id="rsvpForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name"><i class="fas fa-user"></i> Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000">
+                        </div>
+                        <div class="form-group">
+                            <label for="guests"><i class="fas fa-users"></i> Number of Guests</label>
+                            <input type="number" id="guests" name="guests" min="1" max="5" placeholder="1" value="1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="attending"><i class="fas fa-check-circle"></i> Will you be attending?</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="attending" value="yes" required>
+                                <span class="radio-custom"></span>
+                                <span class="radio-text">✨ Joyfully Accept</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="attending" value="no">
+                                <span class="radio-custom"></span>
+                                <span class="radio-text">😔 Regretfully Decline</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dietary"><i class="fas fa-utensils"></i> Dietary Requirements</label>
+                        <input type="text" id="dietary" name="dietary" placeholder="Any dietary restrictions? (optional)">
+                    </div>
+                    <div class="form-group">
+                        <label for="message"><i class="fas fa-comment"></i> Message for the Couple</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Share your wishes or any special requests..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">
+                        <span>Send RSVP</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+                <div id="rsvpMessage" class="rsvp-message"></div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <p>We can't wait to celebrate with you! 💕</p>
-        <p>&copy; 2025 Vijay & Bindiya Wedding</p>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-names">Vijay & Bindiya</h3>
+                    <p class="footer-date">11.04.2025</p>
+                </div>
+                <div class="footer-section">
+                    <p class="footer-tagline">Thank you for being part of our journey</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <p class="footer-copyright">&copy; 2025 All rights reserved</p>
+                    <p class="footer-heart">Made with <i class="fas fa-heart"></i> for our special day</p>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script src="script.js"></script>
