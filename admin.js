@@ -11,11 +11,23 @@ const firebaseConfig = {
     appId: "YOUR_APP_ID"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-const storage = firebase.storage();
-const auth = firebase.auth();
+// Hardcoded admin credentials (temporary - replace with Firebase later)
+const ADMIN_CREDENTIALS = {
+    username: 'vijay',
+    password: '10042026'
+};
+
+// Check if Firebase is configured
+const isFirebaseConfigured = firebaseConfig.apiKey !== "YOUR_API_KEY";
+
+// Initialize Firebase only if configured
+let db, storage, auth;
+if (isFirebaseConfigured) {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
+    storage = firebase.storage();
+    auth = firebase.auth();
+}
 
 // ========================================
 // ADMIN PORTAL FUNCTIONS
@@ -40,16 +52,39 @@ document.getElementById('adminLoginForm')?.addEventListener('submit', async (e) 
     e.preventDefault();
     const email = document.getElementById('adminEmail').value;
     const password = document.getElementById('adminPassword').value;
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+    submitBtn.disabled = true;
     
     try {
-        await auth.signInWithEmailAndPassword(email, password);
-        document.getElementById('adminLogin').style.display = 'none';
-        document.getElementById('adminDashboard').style.display = 'block';
-        loadGalleryManager();
-        loadVisitors();
-        loadAnalytics();
+        // Check hardcoded credentials first
+        if (email === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+            // Login successful
+            localStorage.setItem('adminLoggedIn', 'true');
+            document.getElementById('adminLogin').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            loadVisitorsLocal();
+            loadAnalyticsLocal();
+            return;
+        }
+        
+        // Try Firebase authentication if configured
+        if (isFirebaseConfigured) {
+            await auth.signInWithEmailAndPassword(email, password);
+            localStorage.setItem('adminLoggedIn', 'true');
+            document.getElementById('adminLogin').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            loadGalleryManager();
+            loadVisitors();
+            loadAnalytics();
+        } else {
+            throw new Error('Invalid credentials');
+        }
     } catch (error) {
-        alert('Login failed: ' + error.message);
+        alert('Login failed: Invalid username or password');
+        submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+        submitBtn.disabled = false;
     }
 });
 
@@ -61,9 +96,27 @@ function switchTab(tab) {
     event.target.classList.add('active');
     document.getElementById(tab + 'Tab').style.display = 'block';
     
-    if (tab === 'gallery') loadGalleryManager();
-    if (tab === 'visitors') loadVisitors();
-    if (tab === 'analytics') loadAnalytics();
+    if (tab === 'gallery') {
+        if (isFirebaseConfigured) {
+            loadGalleryManager();
+        } else {
+            document.getElementById('galleryManager').innerHTML = '<p class="empty-state">Gallery management requires Firebase setup. See FIREBASE_SETUP.md</p>';
+        }
+    }
+    if (tab === 'visitors') {
+        if (isFirebaseConfigured) {
+            loadVisitors();
+        } else {
+            loadVisitorsLocal();
+        }
+    }
+    if (tab === 'analytics') {
+        if (isFirebaseConfigured) {
+            loadAnalytics();
+        } else {
+            loadAnalyticsLocal();
+        }
+    }
 }
 
 // ========================================
@@ -152,11 +205,162 @@ async function updateFrontendGallery() {
     const galleryGrid = document.querySelector('.gallery-grid');
     if (!galleryGrid) return;
     
+// ========================================
+// LOCAL STORAGE FALLBACK (when Firebase not configured)
+// ========================================
+
+// Load Visitors from localStorage
+function loadVisitorsLocal() {
+    const container = document.getElementById('visitorsList');
+    const visitors = JSON.parse(localStorage.getItem('visitors') || '[]');
+    
+    // Update stats
+    document.getElementById('totalVisitors').textContent = visitors.length;
+    
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayCount = visitors.filter(v => {
+        const visitDate = new Date(v.timestamp);
+        return visitDate >= today;
+    }).length;
+    document.getElementById('todayVisitors').textContent = todayCount;
+    
+    if (visitors.length === 0) {
+        container.innerHTML = '<p class="empty-state">No visitors yet</p>';
+        return;
+    }
+    
+    let html = '<table class="visitors-table"><thead><tr><th>Name</th><th>Visit Time</th><th>Pages Viewed</th></tr></thead><tbody>';
+    
+// Track Visitor
+async function trackVisitor(name) {
+    // Always track locally
+    trackVisitorLocal(name);
+    
+    // Also track in Firebase if configured
+    if (!isFirebaseConfigured) return;
+    
     try {
-        const snapshot = await db.collection('gallery').orderBy('uploadedAt', 'desc').limit(6).get();
-        let html = '';
+        const visitorRef = await db.collection('visitors').add({
+            name: name,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            userAgent: navigator.userAgent,
+            pageViews: [],
+            lastActive: firebase.firestore.FieldValue.serverTimestamp()
+        });
         
-        snapshot.forEach(doc => {
+        currentVisitor = {
+            id: visitorRef.id,
+            name: name
+        };
+        
+        // Track page sections
+        trackPageView('Home');
+        
+        return visitorRef.id;
+    } catch (error) {
+        console.error('Error tracking visitor in Firebase:', error);
+    }
+}
+
+// Track Page View
+async function trackPageView(section) {
+    // Always track locally
+    trackPageViewLocal(section);
+    
+    // Also track in Firebase if configured and visitor exists
+    if (!currentVisitor || !isFirebaseConfigured) return;
+    
+    try {
+        await db.collection('visitors').doc(currentVisitor.id).update({
+            pageViews: firebase.firestore.FieldValue.arrayUnion({
+                section: section,
+                timestamp: new Date().toISOString()
+            }),
+            lastActive: firebase.firestore.FieldValue.serverTimestamp()
+        });
+    } catch (error) {
+        console.error('Error tracking page view in Firebase:', error);
+    }
+}           ${details}
+            <button onclick="this.parentElement.parentElement.remove()" class="modal-close-btn">Close</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+
+// Load Analytics from localStorage
+function loadAnalyticsLocal() {
+    const container = document.getElementById('analyticsData');
+    const visitors = JSON.parse(localStorage.getItem('visitors') || '[]');
+    
+    const sectionCounts = {};
+    visitors.forEach(visitor => {
+        visitor.pageViews?.forEach(view => {
+            sectionCounts[view.section] = (sectionCounts[view.section] || 0) + 1;
+        });
+    });
+    
+    if (Object.keys(sectionCounts).length === 0) {
+        container.innerHTML = '<p class="empty-state">No analytics data yet</p>';
+        return;
+    }
+    
+    let html = '<div class="analytics-grid">';
+    
+    Object.entries(sectionCounts).sort((a, b) => b[1] - a[1]).forEach(([section, count]) => {
+        html += `
+            <div class="analytics-card">
+                <h4>${section}</h4>
+                <p class="analytics-number">${count}</p>
+                <p class="analytics-label">views</p>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+// Track Visitor in localStorage
+function trackVisitorLocal(name) {
+    const visitors = JSON.parse(localStorage.getItem('visitors') || '[]');
+    const visitor = {
+        name: name,
+        timestamp: new Date().toISOString(),
+        pageViews: [{ section: 'Home', timestamp: new Date().toISOString() }]
+    };
+    visitors.push(visitor);
+    localStorage.setItem('visitors', JSON.stringify(visitors));
+    localStorage.setItem('currentVisitorIndex', visitors.length - 1);
+}
+
+// Track Page View in localStorage
+function trackPageViewLocal(section) {
+    const visitorIndex = localStorage.getItem('currentVisitorIndex');
+    if (visitorIndex === null) return;
+    
+    const visitors = JSON.parse(localStorage.getItem('visitors') || '[]');
+    if (visitors[visitorIndex]) {
+        const pageView = { section: section, timestamp: new Date().toISOString() };
+        // Check if this section was already tracked recently (within 30 seconds)
+        const recentView = visitors[visitorIndex].pageViews?.find(v => 
+            v.section === section && 
+            (new Date() - new Date(v.timestamp)) < 30000
+        );
+        if (!recentView) {
+            visitors[visitorIndex].pageViews = visitors[visitorIndex].pageViews || [];
+            visitors[visitorIndex].pageViews.push(pageView);
+            localStorage.setItem('visitors', JSON.stringify(visitors));
+        }
+    }
+}
+
+// ========================================
+// VISITOR TRACKING (Works with or without Firebase)
+// ========================================
+
+// Track Visitor.forEach(doc => {
             const data = doc.data();
             html += `
                 <div class="gallery-item" data-category="${data.category || 'couple'}">
