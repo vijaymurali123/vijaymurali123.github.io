@@ -5,8 +5,9 @@
 // ========================================
 // NAME GATE
 // ========================================
-window.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const nameGate = document.getElementById('nameGate');
+    const nameGateForm = document.getElementById('nameGateForm');
     const visitorName = localStorage.getItem('visitorName');
     
     if (visitorName) {
@@ -14,37 +15,49 @@ window.addEventListener('load', () => {
         nameGate.style.display = 'none';
         document.body.style.overflow = 'auto';
         // Track returning visitor
-        if (typeof trackVisitor === 'function') {
-            trackVisitor(visitorName);
-        }
+        setTimeout(() => {
+            if (typeof trackVisitor === 'function') {
+                trackVisitor(visitorName);
+            }
+        }, 1000);
     } else {
         // Show name gate
         nameGate.style.display = 'flex';
         document.body.style.overflow = 'hidden';
     }
-});
-
-// Handle name gate form submission
-document.getElementById('nameGateForm')?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = document.getElementById('visitorName').value.trim();
     
-    if (name) {
-        localStorage.setItem('visitorName', name);
+    // Handle name gate form submission
+    nameGateForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const nameInput = document.getElementById('visitorName');
+        const name = nameInput.value.trim();
         
-        // Track visitor in Firebase
-        if (typeof trackVisitor === 'function') {
-            await trackVisitor(name);
+        if (name) {
+            // Disable button to prevent double submission
+            const submitBtn = nameGateForm.querySelector('button[type="submit"]');
+            const originalHTML = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Please wait...';
+            submitBtn.disabled = true;
+            
+            localStorage.setItem('visitorName', name);
+            
+            // Track visitor in Firebase
+            try {
+                if (typeof trackVisitor === 'function') {
+                    await trackVisitor(name);
+                }
+            } catch (error) {
+                console.log('Tracking not available yet');
+            }
+            
+            // Hide name gate with animation
+            nameGate.style.opacity = '0';
+            setTimeout(() => {
+                nameGate.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 500);
         }
-        
-        // Hide name gate with animation
-        const nameGate = document.getElementById('nameGate');
-        nameGate.style.opacity = '0';
-        setTimeout(() => {
-            nameGate.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }, 500);
-    }
+    });
 });
 
 // ========================================
