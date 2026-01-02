@@ -7,8 +7,44 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 </head>
 <body>
+    <!-- Name Gate Modal -->
+    <div class="name-gate-overlay" id="nameGate">
+        <div class="name-gate-modal">
+            <div class="name-gate-content">
+                <div class="name-gate-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h2>Welcome to Our Wedding</h2>
+                <p>Please enter your name to continue</p>
+                <form id="nameGateForm">
+                    <div class="name-input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="visitorName" placeholder="Your Full Name" required autocomplete="name">
+                    </div>
+                    <button type="submit" class="name-gate-button">
+                        <span>Enter</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Access Button (Hidden) -->
+    <div class="admin-access" id="adminAccess">
+        <button class="admin-toggle" onclick="openAdminPortal()">
+            <i class="fas fa-cog"></i>
+        </button>
+    </div>
+
     <!-- Floating Music Player -->
     <div class="music-player" id="musicPlayer">
         <button class="music-toggle" id="musicToggle">
@@ -365,6 +401,84 @@
         </div>
     </footer>
 
+    <!-- Admin Portal -->
+    <div class="admin-portal" id="adminPortal">
+        <div class="admin-container">
+            <div class="admin-header">
+                <h2><i class="fas fa-shield-alt"></i> Admin Portal</h2>
+                <button class="admin-close" onclick="closeAdminPortal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Admin Login -->
+            <div class="admin-login" id="adminLogin">
+                <h3>Admin Authentication</h3>
+                <form id="adminLoginForm">
+                    <div class="form-group">
+                        <input type="email" id="adminEmail" placeholder="Admin Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="adminPassword" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="admin-button">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Admin Dashboard -->
+            <div class="admin-dashboard" id="adminDashboard" style="display: none;">
+                <div class="admin-tabs">
+                    <button class="admin-tab active" onclick="switchTab('gallery')">Gallery Manager</button>
+                    <button class="admin-tab" onclick="switchTab('visitors')">Visitors</button>
+                    <button class="admin-tab" onclick="switchTab('analytics')">Analytics</button>
+                </div>
+                
+                <!-- Gallery Manager Tab -->
+                <div class="admin-tab-content" id="galleryTab">
+                    <h3>Gallery Management</h3>
+                    <div class="upload-section">
+                        <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+                        <button class="upload-button" onclick="document.getElementById('imageUpload').click()">
+                            <i class="fas fa-cloud-upload-alt"></i> Upload Images
+                        </button>
+                    </div>
+                    <div id="galleryManager" class="gallery-manager"></div>
+                </div>
+                
+                <!-- Visitors Tab -->
+                <div class="admin-tab-content" id="visitorsTab" style="display: none;">
+                    <h3>Website Visitors</h3>
+                    <div class="visitors-stats">
+                        <div class="stat-card">
+                            <i class="fas fa-users"></i>
+                            <div class="stat-info">
+                                <span class="stat-number" id="totalVisitors">0</span>
+                                <span class="stat-label">Total Visitors</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-user-check"></i>
+                            <div class="stat-info">
+                                <span class="stat-number" id="todayVisitors">0</span>
+                                <span class="stat-label">Today</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="visitorsList" class="visitors-list"></div>
+                </div>
+                
+                <!-- Analytics Tab -->
+                <div class="admin-tab-content" id="analyticsTab" style="display: none;">
+                    <h3>Page Analytics</h3>
+                    <div id="analyticsData" class="analytics-data"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+    <script src="admin.js"></script>
 </body>
 </html>

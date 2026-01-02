@@ -2,6 +2,55 @@
 // MODERN WEDDING WEBSITE - JAVASCRIPT
 // ========================================
 
+// ========================================
+// NAME GATE
+// ========================================
+window.addEventListener('load', () => {
+    const nameGate = document.getElementById('nameGate');
+    const visitorName = localStorage.getItem('visitorName');
+    
+    if (visitorName) {
+        // User already entered name
+        nameGate.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        // Track returning visitor
+        if (typeof trackVisitor === 'function') {
+            trackVisitor(visitorName);
+        }
+    } else {
+        // Show name gate
+        nameGate.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+});
+
+// Handle name gate form submission
+document.getElementById('nameGateForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('visitorName').value.trim();
+    
+    if (name) {
+        localStorage.setItem('visitorName', name);
+        
+        // Track visitor in Firebase
+        if (typeof trackVisitor === 'function') {
+            await trackVisitor(name);
+        }
+        
+        // Hide name gate with animation
+        const nameGate = document.getElementById('nameGate');
+        nameGate.style.opacity = '0';
+        setTimeout(() => {
+            nameGate.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }, 500);
+    }
+});
+
+// ========================================
+// SMOOTH SCROLLING
+// ========================================
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
