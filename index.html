@@ -15,29 +15,6 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 </head>
 <body>
-    <!-- Name Gate Modal -->
-    <div class="name-gate-overlay" id="nameGate">
-        <div class="name-gate-modal">
-            <div class="name-gate-content">
-                <div class="name-gate-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <h2>Welcome to Our Wedding</h2>
-                <p>Please enter your name to continue</p>
-                <form id="nameGateForm">
-                    <div class="name-input-group">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="visitorName" placeholder="Your Full Name" required autocomplete="name">
-                    </div>
-                    <button type="submit" class="name-gate-button">
-                        <span>Enter</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- Admin Access Button (Hidden) -->
     <div class="admin-access" id="adminAccess">
         <button class="admin-toggle" onclick="openAdminPortal()">

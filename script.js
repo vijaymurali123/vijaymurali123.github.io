@@ -2,63 +2,7 @@
 // MODERN WEDDING WEBSITE - JAVASCRIPT
 // ========================================
 
-// ========================================
-// NAME GATE
-// ========================================
-document.addEventListener('DOMContentLoaded', () => {
-    const nameGate = document.getElementById('nameGate');
-    const nameGateForm = document.getElementById('nameGateForm');
-    const visitorName = localStorage.getItem('visitorName');
-    
-    if (visitorName) {
-        // User already entered name
-        nameGate.style.display = 'none';
-        document.body.style.overflow = 'auto';
-        // Track returning visitor
-        setTimeout(() => {
-            if (typeof trackVisitor === 'function') {
-                trackVisitor(visitorName);
-            }
-        }, 1000);
-    } else {
-        // Show name gate
-        nameGate.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
-    
-    // Handle name gate form submission
-    nameGateForm?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const nameInput = document.getElementById('visitorName');
-        const name = nameInput.value.trim();
-        
-        if (name) {
-            // Disable button to prevent double submission
-            const submitBtn = nameGateForm.querySelector('button[type="submit"]');
-            const originalHTML = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Please wait...';
-            submitBtn.disabled = true;
-            
-            localStorage.setItem('visitorName', name);
-            
-            // Track visitor in Firebase
-            try {
-                if (typeof trackVisitor === 'function') {
-                    await trackVisitor(name);
-                }
-            } catch (error) {
-                console.log('Tracking not available yet');
-            }
-            
-            // Hide name gate with animation
-            nameGate.style.opacity = '0';
-            setTimeout(() => {
-                nameGate.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }, 500);
-        }
-    });
-});
+// (Name gate removed per request)
 
 // ========================================
 // SMOOTH SCROLLING
