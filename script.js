@@ -82,8 +82,7 @@ function updateCountdown() {
     const distance = weddingDate - now;
     
     if (distance < 0) {
-        document.getElementById('countdown').innerHTML = 
-            '<div class="countdown-item"><span class="countdown-number">🎉</span><span class="countdown-label">We\'re Married!</span></div>';
+        document.getElementById('countdown').innerHTML = '';
         return;
     }
     
