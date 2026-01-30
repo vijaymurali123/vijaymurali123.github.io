@@ -110,7 +110,7 @@ let isPlaying = false;
 // Background music setup
 const audio = new Audio('https://www.bensound.com/bensound-music/bensound-memories.mp3');
 audio.loop = true;
-audio.volume = 0.3; // Set volume to 30%
+audio.volume = 0.5; // Set volume to 50%
 
 // Auto-play music on page load (with user interaction fallback)
 document.addEventListener('DOMContentLoaded', () => {
