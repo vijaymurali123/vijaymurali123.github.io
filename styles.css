@@ -383,6 +383,32 @@ body {
     background: var(--bg-white);
 }
 
+.story-image-container {
+    max-width: 900px;
+    margin: 60px auto 40px;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+}
+
+.story-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.story-image:hover {
+    transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+    .story-image-container {
+        margin: 40px auto 30px;
+    }
+}
+
 .story-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
