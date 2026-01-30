@@ -107,17 +107,41 @@ setInterval(updateCountdown, 1000);
 const musicToggle = document.getElementById('musicToggle');
 let isPlaying = false;
 
-// Note: Add your audio file and uncomment below
-// const audio = new Audio('path-to-your-wedding-music.mp3');
-// audio.loop = true;
+// Background music setup
+const audio = new Audio('https://www.bensound.com/bensound-music/bensound-memories.mp3');
+audio.loop = true;
+audio.volume = 0.3; // Set volume to 30%
 
-musicToggle?.addEventListener('click', () => {
+// Auto-play music on page load (with user interaction fallback)
+document.addEventListener('DOMContentLoaded', () => {
+    // Try to auto-play
+    const playPromise = audio.play();
+    
+    if (playPromise !== undefined) {
+        playPromise.then(() => {
+            isPlaying = true;
+            musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+        }).catch(() => {
+            // Auto-play blocked, wait for user interaction
+            document.body.addEventListener('click', () => {
+                if (!isPlaying) {
+                    audio.play();
+                    isPlaying = true;
+                    musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+            }, { once: true });
+        });
+    }
+});
+
+musicToggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
     if (isPlaying) {
-        // audio.pause();
+        audio.pause();
         musicToggle.innerHTML = '<i class="fas fa-music"></i>';
         isPlaying = false;
     } else {
-        // audio.play();
+        audio.play();
         musicToggle.innerHTML = '<i class="fas fa-pause"></i>';
         isPlaying = true;
     }
