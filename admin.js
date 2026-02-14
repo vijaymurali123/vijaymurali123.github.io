@@ -11,11 +11,6 @@ const firebaseConfig = {
     appId: "YOUR_APP_ID"
 };
 
-// Hardcoded admin credentials (temporary - replace with Firebase later)
-const ADMIN_CREDENTIALS = {
-    username: 'vijay',
-    password: '10042026'
-};
 
 // Check if Firebase is configured
 const isFirebaseConfigured = firebaseConfig.apiKey !== "YOUR_API_KEY";
@@ -70,18 +65,6 @@ document.getElementById('adminLoginForm')?.addEventListener('submit', async (e) 
     submitBtn.disabled = true;
     
     try {
-        // Check hardcoded credentials first
-        if (email === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-            // Login successful
-            localStorage.setItem('adminLoggedIn', 'true');
-            document.getElementById('adminLogin').style.display = 'none';
-            document.getElementById('adminDashboard').style.display = 'block';
-            setAdminAccessVisibility();
-            loadVisitorsLocal();
-            loadAnalyticsLocal();
-            return;
-        }
-        
         // Try Firebase authentication if configured
         if (isFirebaseConfigured) {
             await auth.signInWithEmailAndPassword(email, password);
@@ -93,10 +76,10 @@ document.getElementById('adminLoginForm')?.addEventListener('submit', async (e) 
             loadVisitors();
             loadAnalytics();
         } else {
-            throw new Error('Invalid credentials');
+            throw new Error('Admin login requires Firebase configuration');
         }
     } catch (error) {
-        alert('Login failed: Invalid username or password');
+        alert(`Login failed: ${error.message}`);
         submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
         submitBtn.disabled = false;
     }

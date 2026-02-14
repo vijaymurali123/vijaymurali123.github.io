@@ -150,6 +150,8 @@ musicToggle?.addEventListener('click', (e) => {
 // ========================================
 // GALLERY LIGHTBOX
 // ========================================
+const galleryGrid = document.getElementById('galleryGrid');
+const galleryToggle = document.getElementById('galleryToggle');
 const galleryItems = document.querySelectorAll('.gallery-item');
 const lightbox = document.getElementById('lightbox');
 const lightboxImage = document.getElementById('lightboxImage');
@@ -159,6 +161,15 @@ const lightboxNext = document.getElementById('lightboxNext');
 
 let currentImageIndex = 0;
 const images = Array.from(galleryItems).map(item => item.querySelector('img').src);
+
+galleryToggle?.addEventListener('click', () => {
+    const isCollapsed = galleryGrid?.classList.contains('is-collapsed');
+    if (!galleryGrid) return;
+    galleryGrid.classList.toggle('is-collapsed');
+    const expanded = !isCollapsed;
+    galleryToggle.setAttribute('aria-expanded', String(expanded));
+    galleryToggle.textContent = expanded ? 'Show Fewer Photos' : 'View All Photos';
+});
 
 galleryItems.forEach((item, index) => {
     item.addEventListener('click', () => {

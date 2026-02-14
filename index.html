@@ -23,14 +23,14 @@
 <body>
     <!-- Admin Access Button (Hidden) -->
     <div class="admin-access" id="adminAccess">
-        <button class="admin-toggle" onclick="openAdminPortal()">
+        <button class="admin-toggle" onclick="openAdminPortal()" aria-label="Open admin portal" type="button">
             <i class="fas fa-cog"></i>
         </button>
     </div>
 
     <!-- Floating Music Player -->
     <div class="music-player" id="musicPlayer">
-        <button class="music-toggle" id="musicToggle">
+        <button class="music-toggle" id="musicToggle" aria-label="Toggle background music" type="button">
             <i class="fas fa-music"></i>
         </button>
     </div>
@@ -106,7 +106,10 @@
             
             <!-- Story Image -->
             <div class="story-image-container">
-                <img src="images/Gemini_Generated_Image_enr8ueenr8ueenr8.png" alt="Vijay and Bindiya together" class="story-image" loading="lazy">
+                <picture>
+                    <source srcset="images/Gemini_Generated_Image_enr8ueenr8ueenr8.webp" type="image/webp">
+                    <img src="images/Gemini_Generated_Image_enr8ueenr8ueenr8.png" alt="Vijay and Bindiya together" class="story-image" loading="lazy" decoding="async" width="1200" height="900">
+                </picture>
             </div>
             
             <div class="story-content">
@@ -150,7 +153,7 @@
                         <i class="fas fa-calendar-alt"></i>
                     </div>
                     <h3>When</h3>
-                    <p class="detail-main">Friday, April 11, 2026</p>
+                    <p class="detail-main">Friday · 11 · 04 · 2026</p>
                     <p class="detail-sub">Wedding Reception</p>
                     <div class="detail-divider"></div>
                     <p class="detail-time"><i class="far fa-clock"></i> Evening Ceremony</p>
@@ -160,16 +163,16 @@
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
                     <h3>Where</h3>
-                    <p class="detail-main">Aruvi House</p>
+                    <p class="detail-main">Aruvi House, India</p>
                     <p class="detail-sub">Groom's Residence</p>
                     <div class="detail-divider"></div>
-                    <a href="https://www.google.com/maps/search/?api=1&query=Aruvi+House" class="detail-button" target="_blank" rel="noopener">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Aruvi+House%2C%20India" class="detail-button" target="_blank" rel="noopener">
                         <i class="fas fa-directions"></i> Get Directions
                     </a>
                 </div>
             </div>
             <div class="save-date">
-                <a class="save-date-button" href="https://www.google.com/calendar/render?action=TEMPLATE&text=Vijay%20%26%20Bindiya%20Wedding%20Reception&dates=20260411T180000/20260411T220000&details=Join%20us%20for%20our%20wedding%20reception.&location=Aruvi%20House" target="_blank" rel="noopener">
+                <a class="save-date-button" href="https://www.google.com/calendar/render?action=TEMPLATE&text=Vijay%20%26%20Bindiya%20Wedding%20Reception&dates=20260411T180000/20260411T220000&details=Join%20us%20for%20our%20wedding%20reception.&location=Aruvi%20House%2C%20India" target="_blank" rel="noopener">
                     <i class="far fa-calendar-plus"></i>
                     <span>Save The Date</span>
                 </a>
@@ -185,95 +188,134 @@
                 <h2 class="section-title">Our Moments</h2>
                 <div class="title-underline"></div>
             </div>
-            <div class="gallery-grid">
+            <div class="gallery-grid is-collapsed" id="galleryGrid">
                 <div class="gallery-item" data-category="couple">
-                    <img src="savethe%20date/DSC00696%202.jpg" alt="Vijay & Bindiya - Photo 1" loading="lazy">
+                    <picture>
+                        <source srcset="savethe%20date/DSC00696%202.webp" type="image/webp">
+                        <img src="savethe%20date/DSC00696%202.jpg" alt="Save-the-date photo 1 of Vijay and Bindiya" loading="lazy" decoding="async" width="1200" height="800">
+                    </picture>
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item" data-category="couple">
-                    <img src="savethe%20date/DSC00711.jpg" alt="Vijay & Bindiya - Photo 2" loading="lazy">
+                    <picture>
+                        <source srcset="savethe%20date/DSC00711.webp" type="image/webp">
+                        <img src="savethe%20date/DSC00711.jpg" alt="Save-the-date photo 2 of Vijay and Bindiya" loading="lazy" decoding="async" width="1200" height="800">
+                    </picture>
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item" data-category="couple">
-                    <img src="savethe%20date/DSC00725%202.jpg" alt="Vijay & Bindiya - Photo 3" loading="lazy">
+                    <picture>
+                        <source srcset="savethe%20date/DSC00725%202.webp" type="image/webp">
+                        <img src="savethe%20date/DSC00725%202.jpg" alt="Save-the-date photo 3 of Vijay and Bindiya" loading="lazy" decoding="async" width="1200" height="800">
+                    </picture>
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item" data-category="couple">
-                    <img src="savethe%20date/DSC00891.jpg" alt="Vijay & Bindiya - Photo 4" loading="lazy">
+                    <picture>
+                        <source srcset="savethe%20date/DSC00891.webp" type="image/webp">
+                        <img src="savethe%20date/DSC00891.jpg" alt="Save-the-date photo 4 of Vijay and Bindiya" loading="lazy" decoding="async" width="1200" height="800">
+                    </picture>
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item" data-category="couple">
-                    <img src="savethe%20date/DSC00961.jpg" alt="Vijay & Bindiya - Photo 5" loading="lazy">
+                    <picture>
+                        <source srcset="savethe%20date/DSC00961.webp" type="image/webp">
+                        <img src="savethe%20date/DSC00961.jpg" alt="Save-the-date photo 5 of Vijay and Bindiya" loading="lazy" decoding="async" width="1200" height="800">
+                    </picture>
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item" data-category="couple">
-                    <img src="savethe%20date/DSC01113.jpg" alt="Vijay & Bindiya - Photo 6" loading="lazy">
+                    <picture>
+                        <source srcset="savethe%20date/DSC01113.webp" type="image/webp">
+                        <img src="savethe%20date/DSC01113.jpg" alt="Save-the-date photo 6 of Vijay and Bindiya" loading="lazy" decoding="async" width="1200" height="800">
+                    </picture>
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item" data-category="couple">
-                    <img src="savethe%20date/DSC01185.jpg" alt="Vijay & Bindiya - Photo 7" loading="lazy">
+                    <picture>
+                        <source srcset="savethe%20date/DSC01185.webp" type="image/webp">
+                        <img src="savethe%20date/DSC01185.jpg" alt="Save-the-date photo 7 of Vijay and Bindiya" loading="lazy" decoding="async" width="1200" height="800">
+                    </picture>
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item" data-category="couple">
-                    <img src="savethe%20date/DSC01195.jpg" alt="Vijay & Bindiya - Photo 8" loading="lazy">
+                    <picture>
+                        <source srcset="savethe%20date/DSC01195.webp" type="image/webp">
+                        <img src="savethe%20date/DSC01195.jpg" alt="Save-the-date photo 8 of Vijay and Bindiya" loading="lazy" decoding="async" width="1200" height="800">
+                    </picture>
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item" data-category="couple">
-                    <img src="savethe%20date/DSC01228.jpg" alt="Vijay & Bindiya - Photo 9" loading="lazy">
+                    <picture>
+                        <source srcset="savethe%20date/DSC01228.webp" type="image/webp">
+                        <img src="savethe%20date/DSC01228.jpg" alt="Save-the-date photo 9 of Vijay and Bindiya" loading="lazy" decoding="async" width="1200" height="800">
+                    </picture>
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item" data-category="couple">
-                    <img src="savethe%20date/DSC01328.jpg" alt="Vijay & Bindiya - Photo 10" loading="lazy">
+                    <picture>
+                        <source srcset="savethe%20date/DSC01328.webp" type="image/webp">
+                        <img src="savethe%20date/DSC01328.jpg" alt="Save-the-date photo 10 of Vijay and Bindiya" loading="lazy" decoding="async" width="1200" height="800">
+                    </picture>
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item" data-category="couple">
-                    <img src="savethe%20date/DSC01360.jpg" alt="Vijay & Bindiya - Photo 11" loading="lazy">
+                    <picture>
+                        <source srcset="savethe%20date/DSC01360.webp" type="image/webp">
+                        <img src="savethe%20date/DSC01360.jpg" alt="Save-the-date photo 11 of Vijay and Bindiya" loading="lazy" decoding="async" width="1200" height="800">
+                    </picture>
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item" data-category="couple">
-                    <img src="savethe%20date/DSC01364.jpg" alt="Vijay & Bindiya - Photo 12" loading="lazy">
+                    <picture>
+                        <source srcset="savethe%20date/DSC01364.webp" type="image/webp">
+                        <img src="savethe%20date/DSC01364.jpg" alt="Save-the-date photo 12 of Vijay and Bindiya" loading="lazy" decoding="async" width="1200" height="800">
+                    </picture>
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
+            </div>
+            <div class="gallery-actions">
+                <button class="gallery-toggle" id="galleryToggle" type="button" aria-expanded="false">View All Photos</button>
             </div>
         </div>
     </section>
 
     <!-- Lightbox Modal -->
     <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" id="lightboxClose">
+        <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close photo viewer">
             <i class="fas fa-times"></i>
         </button>
-        <button class="lightbox-prev" id="lightboxPrev">
+        <button class="lightbox-prev" id="lightboxPrev" type="button" aria-label="Previous photo">
             <i class="fas fa-chevron-left"></i>
         </button>
-        <button class="lightbox-next" id="lightboxNext">
+        <button class="lightbox-next" id="lightboxNext" type="button" aria-label="Next photo">
             <i class="fas fa-chevron-right"></i>
         </button>
-        <img class="lightbox-image" id="lightboxImage" src="" alt="">
+        <img class="lightbox-image" id="lightboxImage" src="" alt="Gallery photo">
     </div>
 
     <!-- RSVP Section -->
@@ -287,17 +329,6 @@
                 </div>
                 <div class="footer-section">
                     <p class="footer-tagline">Thank you for being part of our journey</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Twitter">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                    </div>
                 </div>
                 <div class="footer-section">
                     <p class="footer-copyright">&copy; 2026 All rights reserved</p>
