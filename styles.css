@@ -133,7 +133,7 @@ body {
     font-size: 14px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--text-light);
+    color: var(--text-dark);
     margin-bottom: 20px;
     animation: fadeIn 1.5s ease-out;
 }
@@ -175,6 +175,13 @@ body {
     margin: 20px 0 40px;
 }
 
+.hero-intro {
+    max-width: 680px;
+    margin: -20px auto 30px;
+    font-size: 16px;
+    color: var(--text-dark);
+}
+
 /* Countdown Timer */
 .countdown {
     display: flex;
@@ -200,8 +207,15 @@ body {
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: var(--text-light);
+    color: var(--text-dark);
     margin-top: 8px;
+}
+
+.section-intro {
+    max-width: 720px;
+    margin: 10px auto 30px;
+    color: var(--text-light);
+    font-size: 16px;
 }
 
 /* CTA Button */

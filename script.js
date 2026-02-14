@@ -77,7 +77,7 @@ window.addEventListener('scroll', updateActiveLink);
 // COUNTDOWN TIMER
 // ========================================
 function updateCountdown() {
-    const weddingDate = new Date('2025-04-11T18:00:00').getTime();
+    const weddingDate = new Date('2026-04-11T18:00:00').getTime();
     const now = new Date().getTime();
     const distance = weddingDate - now;
     

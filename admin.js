@@ -35,6 +35,18 @@ if (isFirebaseConfigured) {
 
 let currentVisitor = null;
 
+function setAdminAccessVisibility() {
+    const adminAccess = document.getElementById('adminAccess');
+    if (!adminAccess) return;
+    const url = new URL(window.location.href);
+    const allowAdminToggle = localStorage.getItem('adminLoggedIn') === 'true' || url.searchParams.get('admin') === '1';
+    adminAccess.style.display = allowAdminToggle ? 'block' : 'none';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    setAdminAccessVisibility();
+});
+
 // Open Admin Portal
 function openAdminPortal() {
     document.getElementById('adminPortal').classList.add('active');
@@ -64,6 +76,7 @@ document.getElementById('adminLoginForm')?.addEventListener('submit', async (e) 
             localStorage.setItem('adminLoggedIn', 'true');
             document.getElementById('adminLogin').style.display = 'none';
             document.getElementById('adminDashboard').style.display = 'block';
+            setAdminAccessVisibility();
             loadVisitorsLocal();
             loadAnalyticsLocal();
             return;
@@ -75,6 +88,7 @@ document.getElementById('adminLoginForm')?.addEventListener('submit', async (e) 
             localStorage.setItem('adminLoggedIn', 'true');
             document.getElementById('adminLogin').style.display = 'none';
             document.getElementById('adminDashboard').style.display = 'block';
+            setAdminAccessVisibility();
             loadGalleryManager();
             loadVisitors();
             loadAnalytics();
