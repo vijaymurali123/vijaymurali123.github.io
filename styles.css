@@ -83,7 +83,7 @@ button:focus-visible {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(rgba(245,241,237,0.85), rgba(232,223,213,0.85)), url('../savethe%20date/DSC01360.jpg') center center / cover no-repeat;
+    background: linear-gradient(rgba(245,241,237,0.3), rgba(232,223,213,0.4)), url('../savethe%20date/DSC01360.jpg') center center / cover no-repeat;
     overflow: hidden;
 }
 
