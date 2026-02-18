@@ -2,7 +2,26 @@
 // MODERN WEDDING WEBSITE - JAVASCRIPT
 // ========================================
 
-// (Name gate removed per request)
+// ========================================
+// PERFORMANCE: PRELOAD HERO IMAGE
+// ========================================
+(function() {
+    // Preload hero background image
+    const isMobile = window.innerWidth <= 768;
+    const heroImage = new Image();
+    heroImage.src = isMobile ? 
+        'images/optimized/hero-bg-mobile.jpg' : 
+        'images/optimized/hero-bg.jpg';
+    
+    heroImage.onload = function() {
+        document.querySelector('.hero')?.classList.add('loaded');
+    };
+    
+    // Fallback: show image after 2 seconds even if not fully loaded
+    setTimeout(() => {
+        document.querySelector('.hero')?.classList.add('loaded');
+    }, 2000);
+})();
 
 // ========================================
 // SMOOTH SCROLLING
