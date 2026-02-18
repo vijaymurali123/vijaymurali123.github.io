@@ -1641,9 +1641,3 @@ button:focus-visible {
         font-size: 10px;
     }
 }
-
-@media (max-width: 600px) {
-    #weddingGameCanvas { height: 260px; }
-    .wedding-game-scoreboard { padding: 10px 10px 0 10px; font-size: 1rem; }
-    .wedding-game-start input { width: 140px; }
-}
