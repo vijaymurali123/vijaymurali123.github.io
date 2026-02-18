@@ -83,7 +83,7 @@ button:focus-visible {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(rgba(245,241,237,0.7), rgba(232,223,213,0.7)), url('../savethe%20date/DSC01360.jpg') center center / cover no-repeat;
+    background: linear-gradient(135deg, #f5f1ed 0%, #e8dfd5 100%);
     overflow: hidden;
 }
 
@@ -1610,4 +1610,126 @@ button:focus-visible {
     .countdown-label {
         font-size: 10px;
     }
+}
+
+/* ========================================
+     WEDDING RUNNER GAME STYLES
+     ======================================== */
+.wedding-game-wrapper {
+    position: relative;
+    max-width: 820px;
+    margin: 0 auto 40px auto;
+    background: linear-gradient(to bottom, #f7e9d7 0%, #f7e9d7 70%, #e6c9a8 100%);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(139,115,85,0.18);
+    padding: 24px 0 0 0;
+    overflow: hidden;
+}
+#weddingGameCanvas {
+    display: block;
+    width: 100%;
+    max-width: 800px;
+    height: 400px;
+    background: linear-gradient(to top, #e6c9a8 0%, #fffbe9 100%);
+    border-radius: 16px;
+    margin: 0 auto;
+    box-shadow: 0 4px 16px rgba(139,115,85,0.10);
+    outline: none;
+}
+.wedding-game-ui {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    pointer-events: none;
+}
+.wedding-game-scoreboard {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 40px 0 40px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #8b7355;
+    pointer-events: auto;
+}
+.wedding-game-start, .wedding-game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255,255,255,0.97);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(139,115,85,0.10);
+    padding: 36px 32px 32px 32px;
+    text-align: center;
+    z-index: 2;
+    pointer-events: auto;
+}
+.wedding-game-start input {
+    padding: 12px 18px;
+    font-size: 1.1rem;
+    border: 2px solid #e6c9a8;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    width: 220px;
+    outline: none;
+    transition: border 0.2s;
+}
+.wedding-game-start input:focus {
+    border: 2px solid #8b7355;
+}
+.wedding-game-start button, .wedding-game-over button {
+    padding: 12px 32px;
+    font-size: 1.1rem;
+    background: linear-gradient(90deg, #d4a574 0%, #8b7355 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(139,115,85,0.10);
+    margin-top: 8px;
+    transition: background 0.2s;
+}
+.wedding-game-start button:hover, .wedding-game-over button:hover {
+    background: linear-gradient(90deg, #8b7355 0%, #d4a574 100%);
+}
+.wedding-game-over h3 {
+    color: #8b7355;
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+.wedding-game-over p {
+    font-size: 1.2rem;
+    color: #333;
+}
+.wedding-game-over {
+    display: none;
+}
+.wedding-game-over.active {
+    display: block;
+}
+.wedding-game-start {
+    display: none;
+}
+.wedding-game-start.active {
+    display: block;
+}
+.wedding-game-wrapper:focus-within #weddingGameCanvas {
+    box-shadow: 0 0 0 3px #d4a574;
+}
+@media (max-width: 900px) {
+    .wedding-game-wrapper { max-width: 100%; }
+    #weddingGameCanvas { max-width: 100%; }
+}
+@media (max-width: 600px) {
+    #weddingGameCanvas { height: 260px; }
+    .wedding-game-scoreboard { padding: 10px 10px 0 10px; font-size: 1rem; }
+    .wedding-game-start input { width: 140px; }
 }

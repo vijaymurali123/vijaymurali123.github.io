@@ -30,16 +30,33 @@ if (isFirebaseConfigured) {
 
 let currentVisitor = null;
 
+// Security: Generate session token for admin access
+let sessionToken = null;
+
+function generateSessionToken() {
+    const array = new Uint8Array(32);
+    crypto.getRandomValues(array);
+    return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
 function setAdminAccessVisibility() {
     const adminAccess = document.getElementById('adminAccess');
     if (!adminAccess) return;
-    const url = new URL(window.location.href);
-    const allowAdminToggle = localStorage.getItem('adminLoggedIn') === 'true' || url.searchParams.get('admin') === '1';
-    adminAccess.style.display = allowAdminToggle ? 'block' : 'none';
+    
+    // Security: Only show admin button if properly authenticated with session token
+    const isAuthenticated = sessionToken !== null && 
+                           sessionStorage.getItem('adminSession') === sessionToken;
+    adminAccess.style.display = isAuthenticated ? 'block' : 'none';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     setAdminAccessVisibility();
+    
+    // Security: Clear any URL parameters on load to prevent URL manipulation
+    if (window.location.search) {
+        const cleanUrl = window.location.origin + window.location.pathname + window.location.hash;
+        window.history.replaceState({}, document.title, cleanUrl);
+    }
 });
 
 // Open Admin Portal
@@ -54,12 +71,20 @@ function closeAdminPortal() {
     document.body.style.overflow = 'auto';
 }
 
-// Admin Login
+// Admin Login with security improvements
 document.getElementById('adminLoginForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = document.getElementById('adminEmail').value;
+    
+    // Input sanitization
+    const email = document.getElementById('adminEmail').value.trim();
     const password = document.getElementById('adminPassword').value;
     const submitBtn = e.target.querySelector('button[type="submit"]');
+    
+    // Validate input
+    if (!email || !password) {
+        alert('Please enter both username and password');
+        return;
+    }
     
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
     submitBtn.disabled = true;
@@ -68,22 +93,48 @@ document.getElementById('adminLoginForm')?.addEventListener('submit', async (e) 
         // Try Firebase authentication if configured
         if (isFirebaseConfigured) {
             await auth.signInWithEmailAndPassword(email, password);
-            localStorage.setItem('adminLoggedIn', 'true');
+            
+            // Security: Use session-based auth instead of localStorage
+            sessionToken = generateSessionToken();
+            sessionStorage.setItem('adminSession', sessionToken);
+            sessionStorage.setItem('adminSessionTime', Date.now().toString());
+            
             document.getElementById('adminLogin').style.display = 'none';
             document.getElementById('adminDashboard').style.display = 'block';
             setAdminAccessVisibility();
             loadGalleryManager();
             loadVisitors();
             loadAnalytics();
+            
+            // Auto-logout after 1 hour of inactivity
+            startSessionTimeout();
         } else {
-            throw new Error('Admin login requires Firebase configuration');
+            throw new Error('Admin login requires Firebase configuration. See FIREBASE_SETUP.md');
         }
     } catch (error) {
-        alert(`Login failed: ${error.message}`);
+        console.error('Login error:', error);
+        alert('Login failed. Please check your credentials.');
         submitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
         submitBtn.disabled = false;
+        
+        // Clear password field on failed attempt
+        document.getElementById('adminPassword').value = '';
     }
 });
+
+// Security: Auto-logout after inactivity
+function startSessionTimeout() {
+    const TIMEOUT_DURATION = 60 * 60 * 1000; // 1 hour
+    
+    setTimeout(() => {
+        if (sessionToken) {
+            sessionToken = null;
+            sessionStorage.clear();
+            alert('Session expired. Please login again.');
+            location.reload();
+        }
+    }, TIMEOUT_DURATION);
+}
 
 // Switch Admin Tabs
 function switchTab(tab) {

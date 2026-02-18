@@ -1,0 +1,102 @@
+/* ===========================================
+   SECURITY ENHANCEMENTS - styles.css
+   =========================================== */
+
+/* Hide admin access by default - only shown when authenticated */
+.admin-access {
+    display: none !important;
+}
+
+.admin-access.authenticated {
+    display: block !important;
+}
+
+/* Prevent selection of sensitive data */
+.admin-password,
+.admin-token,
+.admin-secret {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Rate limit visual feedback */
+.rsvp-message.error {
+    background-color: #fee;
+    border-left: 4px solid #c33;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+    color: #c33;
+}
+
+.rsvp-message.success {
+    background-color: #efe;
+    border-left: 4px solid #3c3;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+    color: #3c3;
+}
+
+/* Security notice for admin panel */
+.security-notice {
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    padding: 12px;
+    margin: 15px 0;
+    color: #856404;
+    font-size: 14px;
+}
+
+.security-notice i {
+    margin-right: 8px;
+}
+
+/* Session timeout warning */
+.session-warning {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #ff9800;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 10000;
+    display: none;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Secure input styling */
+input[type="password"] {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+}
+
+/* CSP violation report notice */
+.csp-violation {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #f44336;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 10000;
+}

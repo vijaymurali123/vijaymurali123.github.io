@@ -1,0 +1,1 @@
+This folder is for future SVG or PNG assets for the wedding runner game (groom, bride, obstacles, collectibles, etc.).
