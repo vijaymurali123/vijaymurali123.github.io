@@ -378,11 +378,6 @@ console.log('%c💍 Congratulations to Vijay & Bindiya! 💍',
     'font-size: 20px; font-weight: bold; color: #8b7355;');
 console.log('%cWebsite designed with love ❤️', 
     'font-size: 14px; color: #6b6b6b;');
-
-// ========================================
-// WEDDING RUNNER GAME (Wedding Subway Theme)
-// ========================================
-(function() {
   // DOM Elements
   const canvas = document.getElementById('weddingGameCanvas');
   const ctx = canvas ? canvas.getContext('2d') : null;
@@ -663,6 +658,4 @@ console.log('%cWebsite designed with love ❤️',
     showOver();
   }
 
-  // Initial UI
-  showStart();
-})();
+
