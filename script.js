@@ -100,8 +100,19 @@ function updateCountdown() {
     const now = new Date().getTime();
     const distance = weddingDate - now;
     
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    
+    // Check if elements exist
+    if (!daysEl || !hoursEl || !minutesEl || !secondsEl) {
+        console.error('Countdown elements not found');
+        return;
+    }
+    
     if (distance < 0) {
-        document.getElementById('countdown').innerHTML = '';
+        document.getElementById('countdown').innerHTML = '<p style="color: #8b7355; font-size: 1.5rem;">The big day is here! 🎉</p>';
         return;
     }
     
@@ -110,15 +121,23 @@ function updateCountdown() {
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
     
-    document.getElementById('days').textContent = String(days).padStart(2, '0');
-    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    daysEl.textContent = String(days).padStart(2, '0');
+    hoursEl.textContent = String(hours).padStart(2, '0');
+    minutesEl.textContent = String(minutes).padStart(2, '0');
+    secondsEl.textContent = String(seconds).padStart(2, '0');
 }
 
-// Update countdown every second
-updateCountdown();
-setInterval(updateCountdown, 1000);
+// Initialize countdown when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    });
+} else {
+    // DOM already loaded
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
 
 // ========================================
 // MUSIC PLAYER
