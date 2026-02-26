@@ -65,13 +65,37 @@ button:focus-visible {
     color: white;
     font-size: 20px;
     cursor: pointer;
-    box-shadow: var(--shadow-lg);
-    transition: var(--transition);
+    box-shadow: 0 8px 25px rgba(139,115,85,0.4);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.music-toggle::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.music-toggle:hover::before {
+    width: 100%;
+    height: 100%;
 }
 
 .music-toggle:hover {
-    transform: scale(1.1) rotate(15deg);
-    box-shadow: 0 15px 50px rgba(139,115,85,0.3);
+    transform: scale(1.15) rotate(15deg);
+    box-shadow: 0 15px 50px rgba(139,115,85,0.5);
+}
+
+.music-toggle:active {
+    transform: scale(0.95);
 }
 
 /* ========================================
@@ -143,6 +167,8 @@ button:focus-visible {
     z-index: 2;
     text-align: center;
     animation: fadeInUp 1s ease-out;
+    padding: 0 20px;
+    max-width: 100%;
 }
 
 .hero-animation {
@@ -182,19 +208,23 @@ button:focus-visible {
     font-weight: 400;
     line-height: 1.2;
     color: var(--primary-color);
-    margin: 20px 0;
+    margin: 20px 0 30px 0;
     animation: fadeIn 2s ease-out;
     text-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: visible;
 }
 
 .name-groom,
 .name-bride {
     display: inline-block;
+    margin: 0 -2px;
 }
 
 .ampersand {
     display: inline-block;
-    margin: 0 20px;
+    margin: 0 -4px;
     font-size: 60px;
     color: var(--secondary-color);
 }
@@ -235,6 +265,17 @@ button:focus-visible {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.countdown-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(139, 115, 85, 0.15);
 }
 
 .countdown-number {
@@ -243,6 +284,7 @@ button:focus-visible {
     color: var(--primary-color);
     line-height: 1;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .countdown-label {
@@ -438,6 +480,8 @@ button:focus-visible {
 .our-story {
     padding: 120px 0;
     background: var(--bg-white);
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .story-image-container {
@@ -447,17 +491,17 @@ button:focus-visible {
     overflow: hidden;
     border-radius: 20px;
     box-shadow: var(--shadow-lg);
+    position: relative;
+    opacity: 1 !important;
+    transform: none !important;
 }
 
 .story-image {
     width: 100%;
     height: auto;
     display: block;
-    transition: transform 0.3s ease;
-}
-
-.story-image:hover {
-    transform: scale(1.02);
+    opacity: 1 !important;
+    transform: none !important;
 }
 
 @media (max-width: 768px) {
@@ -478,12 +522,8 @@ button:focus-visible {
     padding: 40px;
     background: var(--bg-light);
     border-radius: 15px;
-    transition: var(--transition);
-}
-
-.story-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-md);
+    opacity: 1 !important;
+    transform: none !important;
 }
 
 .story-icon {
@@ -616,14 +656,31 @@ button:focus-visible {
     padding: 50px 40px;
     border-radius: 15px;
     text-align: center;
-    transition: var(--transition);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.detail-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s ease;
 }
 
 .detail-card:hover {
     border-color: var(--secondary-color);
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(139, 115, 85, 0.25);
+}
+
+.detail-card:hover::after {
+    left: 100%;
 }
 
 .detail-icon {
@@ -684,12 +741,23 @@ button:focus-visible {
     text-decoration: none;
     border-radius: 25px;
     font-weight: 500;
-    transition: var(--transition);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .detail-button:hover {
     background: var(--primary-color);
     color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 115, 85, 0.3);
+}
+
+.detail-button i {
+    transition: transform 0.3s ease;
+}
+
+.detail-button:hover i {
+    transform: translateX(3px);
 }
 
 .save-date {
@@ -711,12 +779,25 @@ button:focus-visible {
     letter-spacing: 1px;
     cursor: pointer;
     box-shadow: var(--shadow-md);
-    transition: var(--transition);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .save-date-button:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(139, 115, 85, 0.35);
+}
+
+.save-date-button i {
+    transition: transform 0.3s ease;
+}
+
+.save-date-button:hover i {
+    animation: pulse 0.6s ease infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
 }
 
 /* ========================================
@@ -767,13 +848,54 @@ button:focus-visible {
     border-radius: 15px;
     cursor: pointer;
     aspect-ratio: 1;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.gallery-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
 }
 
 .gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 20px;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay i {
+    color: white;
+    font-size: 32px;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay i {
+    transform: translateY(0);
 }
 
 .gallery-overlay {
@@ -1544,17 +1666,60 @@ button:focus-visible {
    RESPONSIVE DESIGN
    ======================================== */
 @media (max-width: 768px) {
+    .hero-content {
+        padding: 0 25px;
+    }
+    
     .couple-names {
-        font-size: 50px;
+        font-size: 6.5vw;
+        white-space: nowrap;
+        margin: 15px 0 25px 0;
+        letter-spacing: -1px;
+    }
+    
+    .name-groom,
+    .name-bride {
+        margin: 0 -3px;
     }
     
     .ampersand {
-        font-size: 40px;
-        margin: 0 10px;
+        font-size: 5vw;
+        margin: 0 -1vw;
+    }
+    
+    .hero-subtitle {
+        font-size: 10px;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+    }
+    
+    .wedding-date {
+        font-size: 14px;
+        letter-spacing: 5px;
+        margin: 15px 0 20px;
+    }
+    
+    .hero-intro {
+        font-size: 13px;
+        max-width: 90%;
+        margin: -10px auto 20px;
+        line-height: 1.5;
+    }
+    
+    .ornament-top,
+    .ornament-bottom {
+        width: 100px;
+        margin-top: 15px;
+        margin-bottom: 15px;
     }
     
     .countdown {
         gap: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .countdown-item {
+        padding: 12px 16px;
     }
     
     .countdown-number {
@@ -1590,6 +1755,12 @@ button:focus-visible {
     .nav-link {
         padding: 15px 0;
         border-bottom: 1px solid #f0f0f0;
+        font-size: 16px;
+    }
+    
+    .nav-link:active {
+        background: rgba(139, 115, 85, 0.05);
+        transform: scale(0.98);
     }
     
     .section-title {
@@ -1616,6 +1787,30 @@ button:focus-visible {
         grid-template-columns: 1fr;
     }
     
+    /* Mobile-specific touch feedback */
+    .detail-card:active,
+    .story-card:active,
+    .gallery-item:active {
+        transform: scale(0.97);
+    }
+    
+    .save-date-button:active,
+    .detail-button:active {
+        transform: scale(0.95);
+    }
+    
+    /* Larger tap targets for mobile */
+    .music-toggle {
+        width: 55px;
+        height: 55px;
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    .gallery-item {
+        border-radius: 12px;
+    }
+    
     .rsvp-form {
         padding: 30px 20px;
     }
@@ -1624,14 +1819,58 @@ button:focus-visible {
         grid-template-columns: 1fr;
     }
     
-    .footer-content {
+}    .footer-content {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 480px) {
+    .hero-content {
+        padding: 0 20px;
+    }
+    
     .couple-names {
-        font-size: 40px;
+        font-size: 5.8vw;
+        white-space: nowrap;
+        margin: 12px 0 20px 0;
+        letter-spacing: -1.5px;
+    }
+    
+    .name-groom,
+    .name-bride {
+        margin: 0 -3px;
+    }
+    
+    .ampersand {
+        font-size: 4.3vw;
+        margin: 0 -1.5vw;
+    }
+    
+    .hero-subtitle {
+        font-size: 9px;
+        letter-spacing: 1.5px;
+        margin-bottom: 12px;
+    }
+    
+    .wedding-date {
+        font-size: 12px;
+        letter-spacing: 4px;
+        margin: 12px 0 15px;
+    }
+    
+    .hero-intro {
+        font-size: 12px;
+        max-width: 95%;
+        margin: -8px auto 15px;
+        line-height: 1.4;
+        padding: 0 10px;
+    }
+    
+    .ornament-top,
+    .ornament-bottom {
+        width: 80px;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
     
     .countdown-number {
@@ -1640,5 +1879,332 @@ button:focus-visible {
     
     .countdown-label {
         font-size: 10px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 375px) {
+    .hero-content {
+        padding: 0 15px;
+    }
+    
+    .couple-names {
+        font-size: 5.5vw;
+        white-space: nowrap;
+        margin: 10px 0 18px 0;
+        letter-spacing: -2px;
+    }
+    
+    .name-groom,
+    .name-bride {
+        margin: 0 -3px;
+    }
+    
+    .ampersand {
+        font-size: 4vw;
+        margin: 0 -2vw;
+    }
+    
+    .hero-subtitle {
+        font-size: 8px;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+    
+    .wedding-date {
+        font-size: 11px;
+        letter-spacing: 3px;
+        margin: 10px 0 12px;
+    }
+    
+    .hero-intro {
+        font-size: 11px;
+        max-width: 95%;
+        margin: -5px auto 12px;
+        line-height: 1.3;
+        padding: 0 8px;
+    }
+    
+    .ornament-top,
+    .ornament-bottom {
+        width: 60px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+    
+    .hero-subtitle {
+        font-size: 11px;
+        letter-spacing: 2px;
+    }
+    
+    .wedding-date {
+        font-size: 14px;
+        letter-spacing: 4px;
+    }
+}
+
+/* ========================================
+   MODERN INTERACTIONS & EFFECTS
+   ======================================== */
+
+/* Custom Cursor */
+.custom-cursor {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.2s ease;
+    mix-blend-mode: difference;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease;
+}
+
+/* Floating Particles */
+.floating-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, var(--secondary-color), transparent);
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: float-up linear infinite;
+}
+
+@keyframes float-up {
+    0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-100px) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Page Loader */
+.page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f5f1ed 0%, #e8dfd5 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    transition: opacity 0.5s ease;
+}
+
+.loader-content {
+    position: relative;
+    text-align: center;
+}
+
+.loader-ring {
+    width: 100px;
+    height: 100px;
+    border: 3px solid transparent;
+    border-top-color: var(--primary-color);
+    border-right-color: var(--secondary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+.loader-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: 36px;
+    color: var(--primary-color);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Glassmorphism Effects */
+.countdown-item,
+.music-toggle {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Gradient Animation */
+.story-icon,
+.timeline-icon {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Section Transitions */
+section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+section.section-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Enhanced Card Effects */
+.detail-card,
+.story-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.detail-card::before,
+.story-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(139, 115, 85, 0.1), transparent);
+    transform: rotate(45deg);
+    transition: all 0.6s ease;
+}
+
+.detail-card:hover::before,
+.story-card:hover::before {
+    left: 100%;
+}
+
+/* Button Shine Effect */
+.save-date-button,
+.detail-button,
+.cta-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.save-date-button::after,
+.detail-button::after,
+.cta-button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.3), rgba(255,255,255,0));
+    transform: rotateZ(60deg) translate(-5em, 7.5em);
+    animation: sheen 3s infinite;
+}
+
+@keyframes sheen {
+    0%, 100% { transform: rotateZ(60deg) translate(-5em, 7.5em); }
+    50% { transform: rotateZ(60deg) translate(5em, -7.5em); }
+}
+
+/* Smooth Hover Transitions */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a, button, .gallery-item, .detail-card {
+    will-change: transform;
+}
+
+/* Enhanced Countdown */
+.countdown-item {
+    background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.countdown-number {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Scroll Reveal Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .custom-cursor,
+    .cursor-dot {
+        display: none;
+    }
+    
+    section {
+        opacity: 1 !important;
+        transform: none !important;
     }
 }
