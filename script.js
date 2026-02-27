@@ -2,6 +2,10 @@
 // MODERN WEDDING WEBSITE - JAVASCRIPT
 // ========================================
 
+// iOS detection (memory/perf optimizations)
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
 // ========================================
 // CUSTOM CURSOR (DESKTOP ONLY)
 // ========================================
@@ -303,13 +307,29 @@ const galleryGrid = document.getElementById('galleryGrid');
 const galleryToggle = document.getElementById('galleryToggle');
 const galleryItems = document.querySelectorAll('.gallery-item');
 const lightbox = document.getElementById('lightbox');
+const lightboxSource = document.getElementById('lightboxSource');
 const lightboxImage = document.getElementById('lightboxImage');
 const lightboxClose = document.getElementById('lightboxClose');
 const lightboxPrev = document.getElementById('lightboxPrev');
 const lightboxNext = document.getElementById('lightboxNext');
 
 let currentImageIndex = 0;
-const images = Array.from(galleryItems).map(item => item.querySelector('img').src);
+const images = Array.from(galleryItems).map(item => {
+    const fullSrc = item.getAttribute('data-full');
+    const webpSource = item.querySelector('source[type="image/webp"]');
+    const webpSrc = webpSource?.srcset?.split(' ')[0];
+    const img = item.querySelector('img');
+    const imgSrc = img?.currentSrc || img?.src;
+    return {
+        full: fullSrc || imgSrc,
+        webp: webpSrc || null
+    };
+}).filter(image => image.full);
+
+if (lightboxImage) {
+    lightboxImage.setAttribute('decoding', 'async');
+    lightboxImage.setAttribute('loading', 'lazy');
+}
 
 // Touch/swipe support for mobile
 let touchStartX = 0;
@@ -347,24 +367,34 @@ galleryItems.forEach((item, index) => {
     }
 });
 
-function openLightbox(src) {
-    lightboxImage.src = src;
+function openLightbox(image) {
+    if (!image?.full || !lightboxImage || !lightbox) return;
+    lightboxImage.style.opacity = '0';
+    lightboxImage.style.transform = 'scale(0.9)';
+    if (lightboxSource) {
+        lightboxSource.srcset = image.webp || '';
+    }
+    lightboxImage.src = image.full;
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
     
     // Add entrance animation
-    lightboxImage.style.opacity = '0';
-    lightboxImage.style.transform = 'scale(0.9)';
-    setTimeout(() => {
+    requestAnimationFrame(() => {
         lightboxImage.style.opacity = '1';
         lightboxImage.style.transform = 'scale(1)';
         lightboxImage.style.transition = 'all 0.3s ease-out';
-    }, 10);
+    });
 }
 
 function closeLightbox() {
     lightbox.classList.remove('active');
     document.body.style.overflow = 'auto';
+    if (lightboxImage) {
+        lightboxImage.src = '';
+    }
+    if (lightboxSource) {
+        lightboxSource.srcset = '';
+    }
 }
 
 function showNextImage() {
@@ -378,10 +408,16 @@ function showPrevImage() {
 }
 
 function updateLightboxImage() {
+    if (!lightboxImage) return;
     lightboxImage.style.opacity = '0';
     lightboxImage.style.transform = 'scale(0.95)';
     setTimeout(() => {
-        lightboxImage.src = images[currentImageIndex];
+        const nextImage = images[currentImageIndex];
+        if (!nextImage?.full) return;
+        if (lightboxSource) {
+            lightboxSource.srcset = nextImage.webp || '';
+        }
+        lightboxImage.src = nextImage.full;
         lightboxImage.style.opacity = '1';
         lightboxImage.style.transform = 'scale(1)';
     }, 150);
@@ -918,7 +954,7 @@ const imageObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.gallery-item img, .story-image').forEach(img => {
-    img.style.filter = 'blur(10px)';
+    img.style.filter = isIOS ? 'none' : 'blur(10px)';
     img.style.transition = 'filter 0.8s ease, opacity 0.8s ease';
     imageObserver.observe(img);
 });
